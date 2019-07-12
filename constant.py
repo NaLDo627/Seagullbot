@@ -1,6 +1,6 @@
 
 ###################### 버전 ################################
-VERSION = 'ver 0.72'
+VERSION = 'ver 0.73'
 ############################################################
 
 #########   명령어 상수 정의     ##########################################################################
@@ -8,9 +8,9 @@ COMMAND_REACTION1 = '!리액션'
 COMMAND_REACTION2 = '!react'
 COMMAND_HELP1 = '!도움'
 COMMAND_HELP2 = '!help'
-COMMAND_LOLSTAT = '!롤전적'
-COMMAND_LOLNOW = '!롤현재'
-COMMAND_URF = '!우르프'
+# COMMAND_LOLSTAT = '!롤전적'
+# COMMAND_LOLNOW = '!롤현재'
+# COMMAND_URF = '!우르프'
 COMMAND_R6STAT = '!레식전적'
 COMMAND_R6OPER = '!레식오퍼'
 COMMAND_APEX = '!에이펙스'
@@ -29,9 +29,9 @@ COMMAND_LIST = [
     COMMAND_REACTION2,
     COMMAND_HELP1,
     COMMAND_HELP2,
-    COMMAND_LOLSTAT,
-    COMMAND_LOLNOW,
-    COMMAND_URF,
+    # COMMAND_LOLSTAT,
+    # COMMAND_LOLNOW,
+    # COMMAND_URF,
     COMMAND_R6STAT,
     COMMAND_R6OPER,
     COMMAND_APEX,
@@ -47,9 +47,9 @@ COMMAND_LIST = [
 
 HELP_LIST = [
     [COMMAND_HELP1 + ', ' + COMMAND_HELP2, '명령어 리스트를 보여줍니다.', COMMAND_HELP1 + '` or `' + COMMAND_HELP2],
-    [COMMAND_LOLSTAT, '롤 전적을 보여줍니다.', COMMAND_LOLSTAT],
-    [COMMAND_LOLNOW, '현재 플레이중인 롤 정보를 보여줍니다.', COMMAND_LOLNOW],
-    [COMMAND_URF, '현재 우르프 티어를 보여줍니다.', COMMAND_URF],
+    # [COMMAND_LOLSTAT, '롤 전적을 보여줍니다.', COMMAND_LOLSTAT],
+    # [COMMAND_LOLNOW, '현재 플레이중인 롤 정보를 보여줍니다.', COMMAND_LOLNOW],
+    # [COMMAND_URF, '현재 우르프 티어를 보여줍니다.', COMMAND_URF],
     [COMMAND_R6STAT, '레인보우식스 시즈 전적을 보여줍니다.', COMMAND_R6STAT + ' (아이디)'],
     [COMMAND_R6OPER, '레인보우식스 시즈 오퍼레이터 순위를 플레이타임 순으로 보여줍니다.', COMMAND_R6OPER + ' (아이디)'],
     [COMMAND_APEX, '에이펙스 레전드 전적을 보여줍니다.', COMMAND_APEX + ' (아이디)'],
