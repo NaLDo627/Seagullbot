@@ -9,25 +9,28 @@ import datetime
 
 PHANTOMJS_PATH = 'phantomjs.exe'
 
-CHROME_PATH = 'chromedriver.exe'
+CHROME_PATH = './requirements/chromedriver.exe'
 
 
 async def siege_search_stats(argc, argv, client, message):
+    def is_caller(m):
+        return m.author == message.author
+
     if argc == 1:
-        searching = await client.send_message(message.channel, '아이디를 입력하세요.')
-        msg = await client.wait_for_message(timeout=15.0, author=message.author)
+        searching = await message.channel.send('아이디를 입력하세요.')
+        msg = await client.wait_for("message", timeout=15.0, check=is_caller)
         if msg is None:
-            await client.delete_message(searching)
-            await client.send_message(message.channel, '입력받은 시간 초과입니다.')
+            await searching.delete()
+            await message.channel.send('입력받은 시간 초과입니다.')
             return
 
         player_id = msg.content
-        await client.delete_message(msg)
+        await msg.delete()
 
-        searching = await client.edit_message(searching, '검색중입니다...')
+        await searching.edit(content='검색중입니다...')
     else:
         player_id = argv[1]
-        searching = await client.send_message(message.channel, '검색중입니다...')
+        searching = await message.channel.send('검색중입니다...')
 
     ubisoft_id = _search_ubisoft_id(player_id)
     if ubisoft_id.startswith('ERROR:'):
@@ -37,11 +40,11 @@ async def siege_search_stats(argc, argv, client, message):
             result = '데이터베이스 서버에서 에러가 발생하였습니다.'
         else:
             result = '플레이어를 찾을 수 없습니다.'
-        await client.send_message(message.channel, result)
-        await client.delete_message(searching)
+        await message.channel.send(result)
+        await searching.delete()
         return
 
-    await client.send_typing(message.channel)
+    await message.channel.trigger_typing()
     result = search_stats(ubisoft_id)
     if result.startswith('ERROR:'):
         if result == 'ERROR: timeout':
@@ -54,30 +57,33 @@ async def siege_search_stats(argc, argv, client, message):
         embed = discord.Embed(title='***:bomb: RAINBOW SIX STATS :bomb:** presented by* r6stats', description=result+"\n**보다 자세한 정보는 [r6stats](https://r6stats.com/stats/" + ubisoft_id + ")**", color=0x879396)
         embed.set_thumbnail(url="https://ubisoft-avatars.akamaized.net/" + ubisoft_id + "/default_256_256.png")
     #embed.set_footer(text=)
-    await client.send_message(message.channel, embed=embed)
-    await client.delete_message(searching)
+    await message.channel.send(embed=embed)
+    await searching.delete()
 
 
 async def siege_search_operator(argc, argv, client, message):
+    def is_caller(m):
+        return m.author == message.author
+
     if argc == 1:
-        searching = await client.send_message(message.channel, '아이디를 입력하세요.')
-        msg = await client.wait_for_message(timeout=15.0, author=message.author)
+        searching = await message.channel.send('아이디를 입력하세요.')
+        msg = await client.wait_for("message", timeout=15.0, check=is_caller)
         if msg is None:
-            await client.delete_message(searching)
-            await client.send_message(message.channel, '입력받은 시간 초과입니다.')
+            await searching.delete()
+            await message.channel.send('입력받은 시간 초과입니다.')
             return
 
         player_id = msg.content
-        await client.delete_message(msg)
+        await msg.delete()
 
         if player_id is None:
-            await client.delete_message(searching)
-            await client.send_message(message.channel, '입력받은 아이디가 없습니다.')
+            await searching.delete()
+            await message.channel.send('입력받은 아이디가 없습니다.')
             return
-        searching = await client.edit_message(searching, '검색중입니다..')
+        await searching.edit(content='검색중입니다..')
     else:
         player_id = argv[1]
-        searching = await client.send_message(message.channel, '검색중입니다..')
+        searching = await message.channel.send('검색중입니다..')
 
     ubisoft_id = _search_ubisoft_id(player_id)
     if ubisoft_id.startswith('ERROR:'):
@@ -87,11 +93,11 @@ async def siege_search_operator(argc, argv, client, message):
             result = '데이터베이스 서버에서 에러가 발생하였습니다.'
         else:
             result = '플레이어를 찾을 수 없습니다.'
-        await client.send_message(message.channel, result)
-        await client.delete_message(searching)
+        await message.channel.send(result)
+        await searching.delete()
         return
 
-    await client.send_typing(message.channel)
+    await message.channel.trigger_typing()
     result, operator_image = search_operator(ubisoft_id)
     if result.startswith('ERROR:'):
         if result == 'ERROR: timeout':
@@ -111,8 +117,8 @@ async def siege_search_operator(argc, argv, client, message):
         embed.set_thumbnail(url=operator_image)
 
     # embed.set_footer(text=)
-    await client.send_message(message.channel, embed=embed)
-    await client.delete_message(searching)
+    await message.channel.send(embed=embed)
+    await searching.delete()
     # await client.delete_message(searching)
     # for result in result_list:
     #     await client.send_message(message.channel, result)
