@@ -1,15 +1,16 @@
 import configparser
 import os
 
-###################### 버전 ################################
-VERSION = 'ver 0.73'
-############################################################
 
 config = configparser.ConfigParser()
 config.read('./config.ini')
 
+GAME_STATUS = '"!도움"'
+
+###################### 환경 상수 ################################
 DISCORD_TOKEN = config['DEFAULT']['DISCORD_TOKEN']
 DATA_DIR = os.path.abspath(config['DEFAULT']['DATA_DIR'])
+############################################################
 
 #########   명령어 상수 정의     ##########################################################################
 COMMAND_REACTION1 = '!리액션'
@@ -68,6 +69,17 @@ HELP_LIST = [
     [COMMAND_TEAM, '팀을 나눌 수 있습니다.', COMMAND_TEAM + ' <팀 수>'],
     [COMMAND_JEBI, '제비뽑기를 할 수 있습니다.', COMMAND_JEBI + ' (뽑을 사람 수)'],
     [COMMAND_STOP_PLAYING, '현재 재생중인 음악 혹은 리액션을 중단하고 나갑니다.', COMMAND_STOP_PLAYING]
+]
+
+ADMIN_HELP_LIST = [
+    [COMMAND_REACTION_UPLOAD, '서버에 리액션을 업로드 할 수 있습니다.', COMMAND_R6STAT],
+    # [COMMAND_R6OPER, '레인보우식스 시즈 오퍼레이터 순위를 플레이타임 순으로 보여줍니다.', COMMAND_R6OPER + ' (아이디)'],
+    # [COMMAND_APEX, '에이펙스 레전드 전적을 보여줍니다.', COMMAND_APEX + ' (아이디)'],
+    # [COMMAND_REACTION1, '보이스챗 리액션을 할 수 있습니다. 자세한 정보는 `!리액션`에서.', COMMAND_REACTION1 + ' (리스트) or ' + \
+    #                                                                                 COMMAND_REACTION2 + ' (리스트)'],
+    # [COMMAND_TEAM, '팀을 나눌 수 있습니다.', COMMAND_TEAM + ' <팀 수>'],
+    # [COMMAND_JEBI, '제비뽑기를 할 수 있습니다.', COMMAND_JEBI + ' (뽑을 사람 수)'],
+    # [COMMAND_STOP_PLAYING, '현재 재생중인 음악 혹은 리액션을 중단하고 나갑니다.', COMMAND_STOP_PLAYING]
 ]
 
 

@@ -33,7 +33,7 @@ async def parse_command(argc, argv, client, message):
     elif argv[0] == COMMAND_JEBI:
         await common.lottery(argc, argv, client, message)
 
-    ################################ 관리자 명령어 ###########################################################
+    ################################ 음성 명령어 ###########################################################
     # !리액션
     elif argv[0] == COMMAND_REACTION1 or argv[0] == COMMAND_REACTION2:
         await voiceutils.play_reaction(argc, argv, client, message)
@@ -41,24 +41,7 @@ async def parse_command(argc, argv, client, message):
     # !중단
     elif argv[0] == COMMAND_STOP_PLAYING:
         await voiceutils.stop_playing(argc, argv, client, message)
-    ################################ 관리자 명령어 ###########################################################
-
-    ################################ 관리자 명령어 ###########################################################
-
-    # !봇조종
-    elif argv[0] == COMMAND_BOTCTL:
-        await admin.set_target_channel_to_say(argc, argv, client, message)
-
-    # !봇말
-    elif argv[0] == COMMAND_BOTSAY:
-        await admin.say_bot_to_channel(argc, argv, client, message)
-
-    # !리액션업로드
-    elif argv[0] == COMMAND_REACTION_UPLOAD:
-        await admin.upload_reaction(argc, argv, client, message)
-
-    elif argv[0] == '!끼룩':
-        await message.channel.send('https://www.youtube.com/watch?v=m6qWcKLB7Ig')
+    ##########################################################################################################
 
     ##########################################################################################################
     #
@@ -194,3 +177,26 @@ async def parse_command(argc, argv, client, message):
             await message.channel.send(embed=embed)
 
     ##########################################################################################################
+
+    ################################ 관리자 명령어 ###########################################################
+
+    # 권한체크
+    if not admin.check_admin_role(message.author, message.channel):
+        await message.channel.send("이 명령어를 사용할 권한이 없습니다.", delete_after=10)
+        return
+
+    # !봇조종
+    if argv[0] == COMMAND_BOTCTL:
+        await admin.set_target_channel_to_say(argc, argv, client, message)
+
+    # !봇말
+    elif argv[0] == COMMAND_BOTSAY:
+        await admin.say_bot_to_channel(argc, argv, client, message)
+
+    # !리액션업로드
+    elif argv[0] == COMMAND_REACTION_UPLOAD:
+        await admin.upload_reaction(argc, argv, client, message)
+
+    elif argv[0] == '!끼룩':
+        await message.channel.send('https://www.youtube.com/watch?v=m6qWcKLB7Ig')
+

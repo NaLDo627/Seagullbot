@@ -8,7 +8,7 @@ import requests
 ## TODO: 봇조종 방법 개선 및 사용 채널 세분화
 async def set_target_channel_to_say(argc, argv, client, message):
     if argc != 3:
-        await message.channel.send(message.channel, '타겟 설정이 잘못되었습니다. 다시 해주세요.')
+        await message.channel.send('타겟 설정이 잘못되었습니다. 다시 해주세요.')
         return
 
     botctl_dic = {}
@@ -98,3 +98,10 @@ async def download_mp3_file(url, path, file_name):
         for chunk in r.iter_content(chunk_size=1024):
             if chunk:
                 f.write(chunk)
+
+
+# 명령어를 사용한 사람이 채널 관리 권한을 가지고 있는 지 확인한다.
+def check_admin_role(message_author, channel):
+    #guild_permissions = message_author.guild_permissions
+    guild_permissions = message_author.permissions_in(channel)
+    return guild_permissions.manage_guild

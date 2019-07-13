@@ -3,6 +3,7 @@ import asyncio
 from constant import *
 import os
 
+
 #ffmpeg 가 필요하며, ffmpeg 의 bin 폴더를 환경변수 설정해야 합니다.
 async def play_reaction(argc, argv, client, message):
     # 먼저 이 함수가 호출되면 디렉토리를 스캔해서 리스트를 만든다

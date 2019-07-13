@@ -76,7 +76,7 @@ async def divide_by_team(argc, argv, client, message):
         msg = await client.wait_for("message", timeout=60.0, check=is_caller)
         await party.delete()
         if msg is None:
-            await message.channel.send('입력받은 시간 초과입니다.')
+            await message.channel.send('입력받은 시간 초과입니다.', delete_after=10)
             return
         party_string = msg.content
         await msg.delete()
@@ -125,7 +125,7 @@ async def lottery(argc, argv, client, message):
         msg = await client.wait_for("message", timeout=60.0, check=is_caller)
         await party.delete()
         if msg is None:
-            await message.channel.send('입력받은 시간 초과입니다.')
+            await message.channel.send('입력받은 시간 초과입니다.', delete_after=10)
             return
         party_string = msg.content
         await msg.delete()
@@ -135,7 +135,7 @@ async def lottery(argc, argv, client, message):
     party_list = party_string.split(',')
 
     if len(party_list) <= jebi_count:
-        await message.channel.send('뽑을 사람수와 참여하는 사람수를 확인해주세요.')
+        await message.channel.send('뽑을 사람수와 참여하는 사람수를 확인해주세요.', delete_after=10)
         return
 
     jebi_list = []

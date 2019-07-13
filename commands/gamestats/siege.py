@@ -21,7 +21,7 @@ async def siege_search_stats(argc, argv, client, message):
         msg = await client.wait_for("message", timeout=15.0, check=is_caller)
         if msg is None:
             await searching.delete()
-            await message.channel.send('입력받은 시간 초과입니다.')
+            await message.channel.send('입력받은 시간 초과입니다.', delete_after=10)
             return
 
         player_id = msg.content
@@ -40,7 +40,7 @@ async def siege_search_stats(argc, argv, client, message):
             result = '데이터베이스 서버에서 에러가 발생하였습니다.'
         else:
             result = '플레이어를 찾을 수 없습니다.'
-        await message.channel.send(result)
+        await message.channel.send(result, delete_after=10)
         await searching.delete()
         return
 
@@ -70,7 +70,7 @@ async def siege_search_operator(argc, argv, client, message):
         msg = await client.wait_for("message", timeout=15.0, check=is_caller)
         if msg is None:
             await searching.delete()
-            await message.channel.send('입력받은 시간 초과입니다.')
+            await message.channel.send('입력받은 시간 초과입니다.', delete_after=10)
             return
 
         player_id = msg.content
@@ -78,7 +78,7 @@ async def siege_search_operator(argc, argv, client, message):
 
         if player_id is None:
             await searching.delete()
-            await message.channel.send('입력받은 아이디가 없습니다.')
+            await message.channel.send('입력받은 아이디가 없습니다.', delete_after=10)
             return
         await searching.edit(content='검색중입니다..')
     else:
@@ -93,7 +93,7 @@ async def siege_search_operator(argc, argv, client, message):
             result = '데이터베이스 서버에서 에러가 발생하였습니다.'
         else:
             result = '플레이어를 찾을 수 없습니다.'
-        await message.channel.send(result)
+        await message.channel.send(result, delete_after=10)
         await searching.delete()
         return
 
