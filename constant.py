@@ -1,7 +1,15 @@
+import configparser
+import os
 
 ###################### 버전 ################################
 VERSION = 'ver 0.73'
 ############################################################
+
+config = configparser.ConfigParser()
+config.read('./config.ini')
+
+DISCORD_TOKEN = config['DEFAULT']['DISCORD_TOKEN']
+DATA_DIR = os.path.abspath(config['DEFAULT']['DATA_DIR'])
 
 #########   명령어 상수 정의     ##########################################################################
 COMMAND_REACTION1 = '!리액션'
@@ -22,6 +30,7 @@ COMMAND_JEBI = '!제비뽑기'
 COMMAND_BOTCTL = '!봇조종'
 COMMAND_BOTSAY = '!봇말'
 COMMAND_REACTION_UPLOAD = '!리액션업로드'
+COMMAND_STOP_PLAYING = '!중단'
 
 
 COMMAND_LIST = [
@@ -42,7 +51,8 @@ COMMAND_LIST = [
     COMMAND_JEBI,
     COMMAND_BOTCTL,
     COMMAND_BOTSAY,
-    COMMAND_REACTION_UPLOAD
+    COMMAND_REACTION_UPLOAD,
+    COMMAND_STOP_PLAYING
 ]
 
 HELP_LIST = [
@@ -56,18 +66,14 @@ HELP_LIST = [
     [COMMAND_REACTION1, '보이스챗 리액션을 할 수 있습니다. 자세한 정보는 `!리액션`에서.', COMMAND_REACTION1 + ' (리스트) or ' + \
                                                                                     COMMAND_REACTION2 + ' (리스트)'],
     [COMMAND_TEAM, '팀을 나눌 수 있습니다.', COMMAND_TEAM + ' <팀 수>'],
-    [COMMAND_JEBI, '제비뽑기를 할 수 있습니다.', COMMAND_JEBI + ' (뽑을 사람 수)']
+    [COMMAND_JEBI, '제비뽑기를 할 수 있습니다.', COMMAND_JEBI + ' (뽑을 사람 수)'],
+    [COMMAND_STOP_PLAYING, '현재 재생중인 음악 혹은 리액션을 중단하고 나갑니다.', COMMAND_STOP_PLAYING]
 ]
 
-# VOICE_COMMAND_LIST = [
-#     'airhorn', 'airhorn2', 'sad', 'sad2', 'johncena', 'wow', 'wasted', 'haha', 'cheers','nope', 'evil', 'ps1'
-# ]
-
-DATA_DIR = './data/'
 
 # .format(id) 와 같이 사용
-DATA_DIR_ID_FORMAT = DATA_DIR + '{}/'
-MUSIC_DIR_ID_FORMAT = DATA_DIR + '{}/music/'
+DATA_DIR_ID_FORMAT = DATA_DIR + '/{}/'
+MUSIC_DIR_ID_FORMAT = DATA_DIR + '/{}/music/'
 
 REACTION_DEFAULT_DIR = MUSIC_DIR_ID_FORMAT.format('default')
 
