@@ -120,4 +120,6 @@ async def stop_playing(argc, argv, client, message):
 
     for voice_client in voice_clients:
         if message.guild == voice_client.guild:
+            if voice_client.is_playing():
+                await voice_client.stop()
             await voice_client.disconnect()

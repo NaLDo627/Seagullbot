@@ -38,6 +38,7 @@ async def set_target_channel_to_say(argc, argv, client, message):
 
     await message.channel.send('타겟 설정 완료, 서버 ID: {}, 채널 ID: {}'.format(argv[1], argv[2]))
 
+
 @admin_only
 async def say_bot_to_channel(argc, argv, client, message):
     botctl_dic = {}
@@ -63,6 +64,7 @@ async def say_bot_to_channel(argc, argv, client, message):
         print(ex)
         await message.channel.send('봇말 사용에서 오류가 발생했습니다. 사실 아직 잘 안돼요ㅎㅎ;')
         return
+
 
 @admin_only
 async def upload_reaction(argc, argv, client, message):

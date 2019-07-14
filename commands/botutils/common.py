@@ -53,7 +53,7 @@ async def vote_by_reaction(argc, argv, client, message):
         #         await message.channel.send(member.name)
 
 
-async def divide_by_team(argc, argv, client, message):
+async def divide_team_by_text(argc, argv, client, message):
     if argc == 1:
         team_count = 2
     else:
@@ -84,6 +84,61 @@ async def divide_by_team(argc, argv, client, message):
         party_string = argv[3]
 
     party_list = party_string.split(',')
+    team_member_count = int(len(party_list) / team_count)
+
+    for i in range(0, team_count):
+        for j in range(0, team_member_count):
+            random_member = random.choice(party_list)
+            team_no[i].append(random_member)
+            party_list.remove(random_member)
+
+    if len(party_list) is not 0:
+        index = 0
+        while len(party_list) is not 0:
+            team_no[index % team_count].append(party_list[0])
+            party_list.remove(party_list[0])
+            index += 1
+
+    await message.channel.send('팀 나누기 결과 : \n')
+    result_msg = ''
+    for i in range(0, team_count):
+        result_msg += '팀 ' + str(i + 1) + ': ' + str(team_no[i]).replace(' ', '') + '\n'
+
+    await message.channel.send(result_msg)
+
+
+async def divide_team_by_voice_channel(argc, argv, client, message):
+    if argc == 1:
+        team_count = 2
+    else:
+        team_count = int(argv[1])
+
+    if team_count < 2:
+        await message.channel.send('팀 수는 2 이상 가능합니다.', delete_after=10)
+        return
+
+    team_no = []
+
+    for i in range(0, team_count):
+        team_no.append([])
+
+    # Step 1. 메세지 작성자가 음성채널에 있는지 검사
+    author = message.author
+    voice_state = author.voice
+    if voice_state is None:
+        await message.channel.send('음성 채팅에 접속해야 이용할 수 있습니다.', delete_after=10)
+        return
+
+    # Step 2. 메세지 작성자가 포함되어 있는 음성채널의 멤버들을 추출
+    voice_channel = voice_state.channel
+    voice_members = voice_channel.members
+
+    # Step 3. 봇은 제외하고 리스트에 추가한다.
+    party_list = []
+    for voice_member in voice_members:
+        if not voice_member.bot:
+            party_list.append(voice_member.name)
+
     team_member_count = int(len(party_list) / team_count)
 
     for i in range(0, team_count):
@@ -146,3 +201,4 @@ async def lottery(argc, argv, client, message):
     await message.channel.send('뽑힌사람은.. ')
     await asyncio.sleep(1)
     await message.channel.send(str(jebi_list).replace(" ", "") + '!')
+

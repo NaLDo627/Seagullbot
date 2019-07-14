@@ -27,7 +27,11 @@ async def parse_command(argc, argv, client, message):
 
     # !팀나누기
     elif argv[0] == COMMAND_TEAM:
-        await common.divide_by_team(argc, argv, client, message)
+        await common.divide_team_by_text(argc, argv, client, message)
+
+    # !음성팀나누기
+    elif argv[0] == COMMAND_TEAM_VOICED:
+        await common.divide_team_by_voice_channel(argc, argv, client, message)
 
     # !제비뽑기
     elif argv[0] == COMMAND_JEBI:
