@@ -5,7 +5,22 @@ import os
 import json
 import requests
 
+
+# 명령어를 사용한 사람이 채널 관리 권한을 가지고 있는 지 확인한다.
+def admin_only(command_func):
+    #def check_admin_role(message_author, channel):
+    async def check_admin_role(*args, **kwargs):
+        #guild_permissions = message_author.guild_permissions
+        guild_permissions = args[3].author.permissions_in(args[3].channel)
+        if not guild_permissions.manage_guild:
+            await args[3].channel.send('이 명령어에 대한 권한이 없습니다.')
+            return
+        return await command_func(*args, **kwargs)
+    return check_admin_role
+
+
 ## TODO: 봇조종 방법 개선 및 사용 채널 세분화
+@admin_only
 async def set_target_channel_to_say(argc, argv, client, message):
     if argc != 3:
         await message.channel.send('타겟 설정이 잘못되었습니다. 다시 해주세요.')
@@ -23,7 +38,7 @@ async def set_target_channel_to_say(argc, argv, client, message):
 
     await message.channel.send('타겟 설정 완료, 서버 ID: {}, 채널 ID: {}'.format(argv[1], argv[2]))
 
-
+@admin_only
 async def say_bot_to_channel(argc, argv, client, message):
     botctl_dic = {}
     if not os.path.exists('./botctl.json'):
@@ -49,7 +64,7 @@ async def say_bot_to_channel(argc, argv, client, message):
         await message.channel.send('봇말 사용에서 오류가 발생했습니다. 사실 아직 잘 안돼요ㅎㅎ;')
         return
 
-
+@admin_only
 async def upload_reaction(argc, argv, client, message):
     def is_caller(m):
         return m.author == message.author
@@ -100,8 +115,4 @@ async def download_mp3_file(url, path, file_name):
                 f.write(chunk)
 
 
-# 명령어를 사용한 사람이 채널 관리 권한을 가지고 있는 지 확인한다.
-def check_admin_role(message_author, channel):
-    #guild_permissions = message_author.guild_permissions
-    guild_permissions = message_author.permissions_in(channel)
-    return guild_permissions.manage_guild
+

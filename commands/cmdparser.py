@@ -179,11 +179,11 @@ async def parse_command(argc, argv, client, message):
     ##########################################################################################################
 
     ################################ 관리자 명령어 ###########################################################
-
-    # 권한체크
-    if not admin.check_admin_role(message.author, message.channel):
-        await message.channel.send("이 명령어를 사용할 권한이 없습니다.", delete_after=10)
-        return
+    #
+    # # 권한체크
+    # if not admin.check_admin_role(message.author, message.channel):
+    #     await message.channel.send("이 명령어를 사용할 권한이 없습니다.", delete_after=10)
+    #     return
 
     # !봇조종
     if argv[0] == COMMAND_BOTCTL:
