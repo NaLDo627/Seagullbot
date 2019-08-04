@@ -229,7 +229,7 @@ async def replay_ui_pubg(argc, argv, client, message):
         player_id = argv[1]
         searching = await message.channel.send('검색중입니다..')
 
-    res = _get("http://ec2-13-209-72-4.ap-northeast-2.compute.amazonaws.com:10000/api/pubg/matches/" + player_id)
+    res = _get("http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:10000/api/pubg/matches/" + player_id)
 
     if res['error']:
         result = '플레이어를 찾을 수 없습니다.'
@@ -242,7 +242,7 @@ async def replay_ui_pubg(argc, argv, client, message):
     for i, content in enumerate(res['content']):
         if i > 9:
             break
-        replays += "[{}](http://ec2-13-209-72-4.ap-northeast-2.compute.amazonaws.com:12000/pubg/{}/steam/{})\n".\
+        replays += "[{}](http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:12000/pubg/{}/steam/{})\n".\
             format(content['createdAt'], player_id, content['id'])
 
     embed = discord.Embed(title='현재 재생가능한 PUBG Replay들',
@@ -275,7 +275,7 @@ async def replay_ui_lol(argc, argv, client, message):
         player_id = argv[1]
         searching = await message.channel.send('검색중입니다..')
 
-    res = _get("http://ec2-13-209-72-4.ap-northeast-2.compute.amazonaws.com:10000/api/lol/matches/" + player_id)
+    res = _get("http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:10000/api/lol/matches/" + player_id)
 
     if res['error']:
         result = '플레이어를 찾을 수 없습니다.'
@@ -288,7 +288,7 @@ async def replay_ui_lol(argc, argv, client, message):
     for i, content in enumerate(res['content']['matches']):
         if i > 9:
             break
-        replays += "[{}](http://ec2-13-209-72-4.ap-northeast-2.compute.amazonaws.com:12000/lol/{}/kr/{})\n". \
+        replays += "[{}](http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:12000/lol/{}/kr/{})\n". \
             format(datetime.fromtimestamp(content['timestamp']/1000).strftime("%Y-%m-%d %H:%M:%S"), player_id, content['gameId'])
 
     embed = discord.Embed(title='현재 재생가능한 LOL Replay들',
