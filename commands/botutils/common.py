@@ -206,94 +206,99 @@ async def lottery(argc, argv, client, message):
 
 
 async def replay_ui_pubg(argc, argv, client, message):
-    def is_caller(m):
-        return m.author == message.author
+    await message.channel.send('지금 점검중입니다.. ㅠ', delete_after=10)
+    return
 
-    if argc == 1:
-        searching = await message.channel.send('아이디를 입력하세요.')
-        msg = await client.wait_for("message", timeout=15.0, check=is_caller)
-        if msg is None:
-            await searching.delete()
-            await message.channel.send('입력받은 시간 초과입니다.', delete_after=10)
-            return
-
-        player_id = msg.content
-        await msg.delete()
-
-        if player_id is None:
-            await searching.delete()
-            await message.channel.send('입력받은 아이디가 없습니다.', delete_after=10)
-            return
-        await searching.edit(content='검색중입니다..')
-    else:
-        player_id = argv[1]
-        searching = await message.channel.send('검색중입니다..')
-
-    res = _get("http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:10000/api/pubg/matches/" + player_id)
-
-    if res['error']:
-        result = '플레이어를 찾을 수 없습니다.'
-        await message.channel.send(result, delete_after=10)
-        await searching.delete()
-        return
-
-    await message.channel.trigger_typing()
-    replays = ""
-    for i, content in enumerate(res['content']):
-        if i > 9:
-            break
-        replays += "[{}](http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:12000/pubg/{}/steam/{})\n".\
-            format(content['createdAt'], player_id, content['id'])
-
-    embed = discord.Embed(title='현재 재생가능한 PUBG Replay들',
-                          description=replays,
-                          color=0x879396)
-    await message.channel.send(embed=embed)
-    await searching.delete()
+    # def is_caller(m):
+    #     return m.author == message.author
+    #
+    # if argc == 1:
+    #     searching = await message.channel.send('아이디를 입력하세요.')
+    #     msg = await client.wait_for("message", timeout=15.0, check=is_caller)
+    #     if msg is None:
+    #         await searching.delete()
+    #         await message.channel.send('입력받은 시간 초과입니다.', delete_after=10)
+    #         return
+    #
+    #     player_id = msg.content
+    #     await msg.delete()
+    #
+    #     if player_id is None:
+    #         await searching.delete()
+    #         await message.channel.send('입력받은 아이디가 없습니다.', delete_after=10)
+    #         return
+    #     await searching.edit(content='검색중입니다..')
+    # else:
+    #     player_id = argv[1]
+    #     searching = await message.channel.send('검색중입니다..')
+    #
+    # res = _get("http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:10000/api/pubg/matches/" + player_id)
+    #
+    # if res['error']:
+    #     result = '플레이어를 찾을 수 없습니다.'
+    #     await message.channel.send(result, delete_after=10)
+    #     await searching.delete()
+    #     return
+    #
+    # await message.channel.trigger_typing()
+    # replays = ""
+    # for i, content in enumerate(res['content']):
+    #     if i > 9:
+    #         break
+    #     replays += "[{}](http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:12000/pubg/{}/steam/{})\n".\
+    #         format(content['createdAt'], player_id, content['id'])
+    #
+    # embed = discord.Embed(title='현재 재생가능한 PUBG Replay들',
+    #                       description=replays,
+    #                       color=0x879396)
+    # await message.channel.send(embed=embed)
+    # await searching.delete()
 
 async def replay_ui_lol(argc, argv, client, message):
-    def is_caller(m):
-        return m.author == message.author
-
-    if argc == 1:
-        searching = await message.channel.send('아이디를 입력하세요.')
-        msg = await client.wait_for("message", timeout=15.0, check=is_caller)
-        if msg is None:
-            await searching.delete()
-            await message.channel.send('입력받은 시간 초과입니다.', delete_after=10)
-            return
-
-        player_id = msg.content
-        await msg.delete()
-
-        if player_id is None:
-            await searching.delete()
-            await message.channel.send('입력받은 아이디가 없습니다.', delete_after=10)
-            return
-        await searching.edit(content='검색중입니다..')
-    else:
-        player_id = argv[1]
-        searching = await message.channel.send('검색중입니다..')
-
-    res = _get("http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:10000/api/lol/matches/" + player_id)
-
-    if res['error']:
-        result = '플레이어를 찾을 수 없습니다.'
-        await message.channel.send(result, delete_after=10)
-        await searching.delete()
-        return
-
-    await message.channel.trigger_typing()
-    replays = ""
-    for i, content in enumerate(res['content']['matches']):
-        if i > 9:
-            break
-        replays += "[{}](http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:12000/lol/{}/kr/{})\n". \
-            format(datetime.fromtimestamp(content['timestamp']/1000).strftime("%Y-%m-%d %H:%M:%S"), player_id, content['gameId'])
-
-    embed = discord.Embed(title='현재 재생가능한 LOL Replay들',
-                          description=replays,
-                          color=0x879396)
-    await message.channel.send(embed=embed)
-    await searching.delete()
+    await message.channel.send('지금 점검중입니다.. ㅠ', delete_after=10)
+    return
+    # def is_caller(m):
+    #     return m.author == message.author
+    #
+    # if argc == 1:
+    #     searching = await message.channel.send('아이디를 입력하세요.')
+    #     msg = await client.wait_for("message", timeout=15.0, check=is_caller)
+    #     if msg is None:
+    #         await searching.delete()
+    #         await message.channel.send('입력받은 시간 초과입니다.', delete_after=10)
+    #         return
+    #
+    #     player_id = msg.content
+    #     await msg.delete()
+    #
+    #     if player_id is None:
+    #         await searching.delete()
+    #         await message.channel.send('입력받은 아이디가 없습니다.', delete_after=10)
+    #         return
+    #     await searching.edit(content='검색중입니다..')
+    # else:
+    #     player_id = argv[1]
+    #     searching = await message.channel.send('검색중입니다..')
+    #
+    # res = _get("http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:10000/api/lol/matches/" + player_id)
+    #
+    # if res['error']:
+    #     result = '플레이어를 찾을 수 없습니다.'
+    #     await message.channel.send(result, delete_after=10)
+    #     await searching.delete()
+    #     return
+    #
+    # await message.channel.trigger_typing()
+    # replays = ""
+    # for i, content in enumerate(res['content']['matches']):
+    #     if i > 9:
+    #         break
+    #     replays += "[{}](http://ec2-15-164-104-223.ap-northeast-2.compute.amazonaws.com:12000/lol/{}/kr/{})\n". \
+    #         format(datetime.fromtimestamp(content['timestamp']/1000).strftime("%Y-%m-%d %H:%M:%S"), player_id, content['gameId'])
+    #
+    # embed = discord.Embed(title='현재 재생가능한 LOL Replay들',
+    #                       description=replays,
+    #                       color=0x879396)
+    # await message.channel.send(embed=embed)
+    # await searching.delete()
 
